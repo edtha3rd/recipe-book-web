@@ -1,68 +1,44 @@
-import axios, { AxiosResponse } from "axios";
-import { useEffect, useState } from "react";
-import { HashRouter, Navigate, Route, Routes } from "react-router-dom";
+import { useState } from "react";
+import { useQuery } from "react-query";
+import { HashRouter, Route, Routes } from "react-router-dom";
+import { checkUser } from "../api/user";
 import Layout from "../components/Layout";
 import { User } from "../components/UserContext";
+import Home from "./home";
 
 import Login from "./login";
 import NewRecipe from "./newrecipe";
 import Profile from "./profile";
 
-type GetLoginResponse = {
-  data: User[];
-};
-
 const Index = () => {
   const [user, setUser] = useState<User | undefined>();
   // const [cookies, setCookies] = useCookies();
   // console.log(cookies);
-  useEffect(() => {
-    const getUser = () => {
-      axios
-        .get<GetLoginResponse>(
-          `${process.env.REACT_APP_API_URI}/auth/login/success`,
-          {
-            withCredentials: true,
-          }
-        )
-        //check response object
-        .then((response: AxiosResponse) => {
-          if (response.status === 200) {
-            return response.data.user;
-          }
-          throw new Error("authentication failed");
-        })
-        //add user state
-        .then((resObject: User) => {
-          setUser(resObject);
-        })
-        .catch((error) => {
-          console.log(error.message);
-        });
-    };
-    getUser();
-  }, []);
+
+  const { isLoading, error, data: User } = useQuery("getUser", checkUser);
+
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Error</p>;
+
+  if (!User) {
+    return (
+      <HashRouter>
+        <Layout user={User}>
+          <Routes>
+            <Route path="/login" element={<Login />} />
+          </Routes>
+        </Layout>
+      </HashRouter>
+    );
+  }
 
   return (
     <HashRouter>
-      <Layout user={user}>
+      <Layout user={User}>
         <Routes>
-          <Route
-            path="/login"
-            element={!user ? <Login /> : <Navigate to="/" />}
-          ></Route>
-          <Route
-            path="/"
-            element={!user ? <Login /> : <Navigate to="/" />}
-          ></Route>
-          <Route
-            path="/newrecipe"
-            element={user ? <NewRecipe /> : <Navigate to="/login" />}
-          ></Route>
-          <Route
-            path="/profile"
-            element={user ? <Profile /> : <Navigate to="/login" />}
-          ></Route>
+          <Route path="/" element={<Home />}></Route>
+          <Route path="/newrecipe" element={<NewRecipe />}></Route>
+          <Route path="/profile" element={<Profile />}></Route>
         </Routes>
       </Layout>
     </HashRouter>
