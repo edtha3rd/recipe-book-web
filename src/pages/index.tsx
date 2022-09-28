@@ -26,11 +26,10 @@ const Index = () => {
         .get<GetLoginResponse>(
           `${process.env.REACT_APP_API_URI}/auth/login/success`,
           {
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+            },
             withCredentials: true,
-            headers {
-            "Access-Control-Allow-Origin": *
-          }
-
           }
         )
         //check response object
