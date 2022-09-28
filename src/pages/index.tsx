@@ -27,6 +27,10 @@ const Index = () => {
           `${process.env.REACT_APP_API_URI}/auth/login/success`,
           {
             withCredentials: true,
+            headers {
+            Access-Control-Allow-Origin: *
+          }
+
           }
         )
         //check response object
