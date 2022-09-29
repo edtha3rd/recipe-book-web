@@ -29,6 +29,7 @@ const Index = () => {
             headers: {
               "Access-Control-Allow-Origin": "*",
             },
+            withCredentials: true,
           }
         )
         //check response object
