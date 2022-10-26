@@ -24,12 +24,13 @@ const UserForm = ({ authType }: Props) => {
     const formData = new FormData();
     formData.append("username", authValues.email);
     formData.append("password", authValues.password);
+    formData.append("displayName", authValues.name);
 
     const response = await axios.post(
-      `${process.env.REACT_APP_API_URI}/authenticate`,
-      formData,
-      { withCredentials: true }
+      `${process.env.REACT_APP_API_URI}/auth/local`,
+      formData
     );
+    console.log(response.data);
     return response.data;
   };
 
@@ -44,16 +45,16 @@ const UserForm = ({ authType }: Props) => {
         <form
           onSubmit={(event) => handleSubmit(event)}
           encType="multipart/form-data"
-          className="flex flex-col items-center md:items-start md:p-4"
+          className="flex flex-col items-center justify-center md:items-start md:p-4"
         >
           {authType === "Sign Up" ? (
-            <div className="lg:flex md:items-center mb-6">
+            <div className="lg:flex md:items-center mb-6 w-[100%]">
               <div className="md:w-1/3">
                 <label
                   htmlFor="name"
                   className="m-2 block font-bold md:text-right mb-1 md:mb-0 pr-4"
                 >
-                  Name
+                  Display Name
                 </label>
               </div>
               <div className="md:w-2/3">
@@ -70,7 +71,7 @@ const UserForm = ({ authType }: Props) => {
           ) : (
             <></>
           )}
-          <div className="lg:flex lg:items-center mb-6">
+          <div className="lg:flex lg:items-center mb-6 w-[100%]">
             <div className="md:w-1/3">
               <label
                 htmlFor="email"
@@ -90,7 +91,7 @@ const UserForm = ({ authType }: Props) => {
               />
             </div>
           </div>
-          <div className="lg:flex md:items-center mb-6">
+          <div className="lg:flex md:items-center mb-6 w-[100%]">
             <div className="md:w-1/3">
               <label
                 htmlFor="password"
@@ -109,6 +110,14 @@ const UserForm = ({ authType }: Props) => {
                 onChange={(event) => handleTextInput(event)}
               />
             </div>
+          </div>
+          <div className="flex items-center justify-center w-[100%]">
+            <button
+              type="submit"
+              className="p-2 border rounded-md bg-[#ff7f50] shadow-lg"
+            >
+              <span className="font-bold">Submit</span>
+            </button>
           </div>
         </form>
       </div>

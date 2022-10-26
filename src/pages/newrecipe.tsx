@@ -85,7 +85,7 @@ const NewRecipe: React.FunctionComponent = () => {
           encType="multipart/form-data"
           className="flex flex-col items-center md:items-start md:p-4"
         >
-          <div className="md:flex md:items-center mb-6">
+          <div className="md:flex md:items-center mb-6 w-[100%]">
             <div className="md:w-1/3">
               <label
                 htmlFor="name"
@@ -105,7 +105,7 @@ const NewRecipe: React.FunctionComponent = () => {
               />
             </div>
           </div>
-          <div className="md:flex md:items-center mb-6">
+          <div className="md:flex md:items-center mb-6 w-[100%]">
             <div className="md:w-1/3">
               <label
                 htmlFor="ingredients"
@@ -134,7 +134,7 @@ const NewRecipe: React.FunctionComponent = () => {
               /> */}
             </div>
           </div>
-          <div className="md:flex md:items-center mb-6">
+          <div className="md:flex md:items-center mb-6 w-[100%]">
             <div className="md:w-1/3">
               <label
                 htmlFor="prepTime"
@@ -154,7 +154,7 @@ const NewRecipe: React.FunctionComponent = () => {
               />
             </div>
           </div>
-          <div className="md:flex md:items-center mb-6">
+          <div className="md:flex md:items-center mb-6 w-[100%]">
             <div className="md:w-1/3">
               <label
                 htmlFor="category"
@@ -174,11 +174,11 @@ const NewRecipe: React.FunctionComponent = () => {
               />
             </div>
           </div>
-          <div>
+          <div className="w-[100%]">
             <div>
               <label
                 htmlFor="directions"
-                className="mb-2 tracking-wide block font-bold md:mb-0 pr-4"
+                className="mb-2 tracking-wide block font-bold md:mb-0 pr-4 "
               >
                 Directions
               </label>

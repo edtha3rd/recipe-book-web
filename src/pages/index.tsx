@@ -17,8 +17,6 @@ type GetLoginResponse = {
 const Index = () => {
   const [user, setUser] = useState<User | undefined>();
   const [loading, setLoading] = useState<boolean | void>();
-  // const [cookies, setCookies] = useCookies();
-  // console.log(cookies);
 
   useEffect(() => {
     const getUser = () => {

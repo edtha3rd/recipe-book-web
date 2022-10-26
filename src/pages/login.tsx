@@ -32,7 +32,11 @@ const Login = () => {
               }}
               className="underline italic"
             >
-              {authType}
+              {authType === "Sign Up" ? (
+                <span>Already got an account? Sign in Here</span>
+              ) : (
+                <span>Don't have an account? Sign up Here</span>
+              )}
             </button>
           </div>
         </div>
